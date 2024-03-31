@@ -3,6 +3,7 @@ from time import sleep
 from colorama import Fore
 import json
 import os
+from alive import keep_alive
 
 with open('config.json') as f:
     config = json.load(f)
@@ -37,6 +38,13 @@ else:
 print(f"\n{Fore.WHITE}[ {Fore.GREEN}+ {Fore.WHITE}] {Fore.LIGHTBLACK_EX}[O bot está sendo executado]")
 sleep(1)
 print(f"\n{Fore.WHITE}[ {Fore.GREEN}+ {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Animando...")
+sleep(2)
+
+print(f"\n{Fore.WHITE}[ {Fore.GREEN}+ {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Iniciando servidor...\n")
+sleep(3)
+
+# keep alive 
+keep_alive()
 
 while True:
     for word, time_per_word in words_and_times:
@@ -56,7 +64,7 @@ while True:
                     }
                 requests.patch("https://ptb.discordapp.com/api/v6/users/@me/settings", headers={"authorization": token}, json=content)
                 # ajuste o tempo de animação entre letras (opcional)
-                sleep(0.1)  #  pode alterar este valor
+                sleep(1)  #  pode alterar este valor
 
         # atualização instantânea
         else:
@@ -67,3 +75,4 @@ while True:
 
         # aguarda o tempo total da palavra atual
         sleep(time_per_word)
+
