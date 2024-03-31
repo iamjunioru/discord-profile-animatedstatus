@@ -65,15 +65,15 @@ while True:
             requests.patch("https://ptb.discordapp.com/api/v6/users/@me/settings", headers={"authorization": token}, json=content)
             sleep(update_interval)
     else:
-        # Atualização instantânea
+        # atualização instantânea
         content = {
             "custom_status": {"text": status}
         }
         requests.patch("https://ptb.discordapp.com/api/v6/users/@me/settings", headers={"authorization": token}, json=content)
 
-    # Atualize o índice da palavra e faça o loop se necessário
+    # atualize o index da palavra e faz o loop se necessário
     current_word_index += 1
     if current_word_index >= len(words):
         current_word_index = 0
 
-    sleep(update_interval)  # Aguarde o intervalo especificado antes de atualizar a palavra
+    sleep(update_interval)  # aguarda o intervalo especificado antes de atualizar a palavra
