@@ -15,7 +15,7 @@ print(f"{Fore.WHITE}[ {Fore.CYAN}* {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Discord Ani
 print(f"{Fore.WHITE}[ {Fore.CYAN}* {Fore.WHITE}] {Fore.LIGHTBLACK_EX}follow me on GitHub: {Fore.WHITE}https://github.com/iamjunioru")
 print(f"{Fore.WHITE}[ {Fore.CYAN}* {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Follow Pieter on GitHub: {Fore.WHITE}https://github.com/PieterSpruijt\n")
 
-# pegar as palavras e tempos do usuário
+# Pegar as palavras e tempos do usuário
 num_words = int(input(f"{Fore.WHITE}[ {Fore.YELLOW}> {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Insira quantos status deseja adicionar: {Fore.WHITE}"))
 words_and_times = []
 for i in range(num_words):
@@ -27,23 +27,36 @@ for i in range(num_words):
 print(f"\n{Fore.WHITE}[ {Fore.YELLOW}? {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Deseja usar animação nas letras? ~risco de ban~ (y/n): {Fore.WHITE}")
 use_animation = input().lower() == 'y'
 
+# emoji (opcional)
+if use_animation:
+    print(f"\n{Fore.WHITE}[ {Fore.YELLOW}? {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Pesquise aqui: {Fore.WHITE}www.webfx.com/tools/emoji-cheat-sheet {Fore.LIGHTBLACK_EX}(Ou deixe vazio se não quiser emoji)")
+    emoji = input(f"{Fore.WHITE}[ {Fore.YELLOW}> {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Insira o nome do emoji(ex: :grinning_face:): {Fore.WHITE}")
+else:
+    emoji = ""  # dfine como string vazia caso o user não quiser
+
 print(f"\n{Fore.WHITE}[ {Fore.GREEN}+ {Fore.WHITE}] {Fore.LIGHTBLACK_EX}[O bot está sendo executado]")
 sleep(1)
 print(f"\n{Fore.WHITE}[ {Fore.GREEN}+ {Fore.WHITE}] {Fore.LIGHTBLACK_EX}Animando...")
 
 while True:
     for word, time_per_word in words_and_times:
+        # use a palavra e tempo atuais
         status = word
 
         # animação letra por letra (opcional)
         if use_animation:
             for text in range(0, len(status)+1):
-                content = {
-                    "custom_status": {"text": status[:text]}
-                }
+                if emoji != "":
+                    content = {
+                        "custom_status": {"text": status[:text], "emoji_name": emoji}
+                    }
+                else:
+                    content = {
+                        "custom_status": {"text": status[:text]}
+                    }
                 requests.patch("https://ptb.discordapp.com/api/v6/users/@me/settings", headers={"authorization": token}, json=content)
                 # ajuste o tempo de animação entre letras (opcional)
-                sleep(0.5)  # pode alterar este valor
+                sleep(0.1)  #  pode alterar este valor
 
         # atualização instantânea
         else:
